@@ -8,5 +8,5 @@ public interface IAction {
 
     void raidStart();
 
-    void raidEnd();
+    void raidEnd() throws InterruptedException;
 }
