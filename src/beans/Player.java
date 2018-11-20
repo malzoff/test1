@@ -6,14 +6,11 @@ public class Player extends GameObject {
         super(hp, dps);
     }
 
-    public void doSimpleAttack(GameObject target, float damage) {
-
+    private void doSimpleAttack(GameObject target, float damage) {
+        target.hp -= damage;
     }
 
-    @Override
-    public String toString() {
-        return "P{" +
-                "dps=" + Float.toString(dps) +
-                '}';
+    public void doSimpleAttack(Boss boss) {
+        doSimpleAttack(boss, dps);
     }
 }

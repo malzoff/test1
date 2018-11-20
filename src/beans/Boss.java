@@ -36,12 +36,12 @@ public class Boss extends GameObject {
     }
 
     public void doSimpleAttack() {
-        doSimpleAttack(currentTarget, dps);
-        lastSimpleAttackTime = System.currentTimeMillis();
+            doSimpleAttack(currentTarget, dps);
+            lastSimpleAttackTime = System.currentTimeMillis();
     }
 
     private void doSimpleAttack(GameObject target, float damage) {
-        if (target.hp > 0 && damage > 0) {
+        if (target != null && target.hp > 0 && damage > 0) {
             target.hp -= damage;
         }
     }
@@ -52,8 +52,16 @@ public class Boss extends GameObject {
         }
     }
 
-    public void selectNewTarget(List<Player> targets) {
-        setCurrentTarget(targets.get(RANDOM.nextInt(targets.size())));
+    public Player selectNewTarget(List<Player> targets) {
+        int size = targets.size();
+        if (size == 0){
+            setCurrentTarget(null);
+        } else if (size == 1) {
+            setCurrentTarget(targets.get(0));
+        } else {
+            setCurrentTarget(targets.get(RANDOM.nextInt(targets.size())));
+        }
+        return currentTarget;
     }
 
     public long getLastAOENukeTime() {
