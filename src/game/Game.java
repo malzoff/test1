@@ -1,13 +1,14 @@
+package game;
+
 import beans.Boss;
 import beans.Player;
-import beans.Raid;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Game {
-    private static Random RANDOM = new Random();
+    public static Random RANDOM = new Random();
     private static int PLAYERS_COUNT = 10000;
     private static long RAID_DURATION_MILLIS = 10000;
 

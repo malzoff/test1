@@ -11,4 +11,8 @@ public class Time {
     public static long timeLeftBefore(long startTimeMillis) {
         return startTimeMillis - System.currentTimeMillis();
     }
+
+    public static long getNow() {
+        return System.currentTimeMillis();
+    }
 }
