@@ -21,13 +21,12 @@ public class RaidRoom {
             long endTime = getNow() + durationMillis;
             boss.selectNewTarget(players);
             boss.resetTimers(getNow());
-            System.err.println("timeLeft:" + Time.timeLeftBefore(endTime) + " pCount:" + players.size() + " bossHp:" + boss.getHp());
             while (Time.timeLeftBefore(endTime) > 0 && players.size() > 0 && boss.getHp() > 0) {
+                System.err.println("timeLeft:" + Time.timeLeftBefore(endTime) + " pCount:" + players.size() + " bossHp:" + boss.getHp());
                 long loopStart = getNow();
                 bossAttack();
                 dropKilledPlayers();
                 playersAttack();
-                System.err.println("timeLeft:" + Time.timeLeftBefore(endTime) + " pCount:" + players.size() + " bossHp:" + boss.getHp());
                 try {
                     Thread.sleep(Time.SECOND_MILLIS - (getNow() - loopStart));
                 } catch (InterruptedException e) {
@@ -70,7 +69,7 @@ public class RaidRoom {
         if (size > 0) {
             for (int i = 0; i < size && boss.getHp() > 0; i++) {
                 players.get(i).doSimpleAttack(boss);
-                System.err.println("player " + i + " hits boss by " + players.get(i).getDps() + "; boss hp left:" + boss.getHp());
+                attacksCnt++;
             }
         }
         System.err.println("attacks:" + attacksCnt);
