@@ -9,8 +9,8 @@ import java.util.List;
 import static util.Time.getNow;
 
 public class RaidRoom {
-    private final List<Player> players;
-    private final Boss boss;
+    private List<Player> players;
+    private Boss boss;
     private Thread raidThread;
 
     public RaidRoom(List<Player> players, Boss boss, final long durationMillis) {
@@ -22,7 +22,6 @@ public class RaidRoom {
             boss.selectNewTarget(players);
             boss.resetTimers(getNow());
             while (Time.timeLeftBefore(endTime) > 0 && players.size() > 0 && boss.getHp() > 0) {
-                System.err.println("timeLeft:" + Time.timeLeftBefore(endTime) + " pCount:" + players.size() + " bossHp:" + boss.getHp());
                 long loopStart = getNow();
                 bossAttack();
                 dropKilledPlayers();
@@ -40,9 +39,8 @@ public class RaidRoom {
     private void dropKilledPlayers() {
         int size = players.size();
         if (size > 0) {
-            players.removeIf(player -> player.getHp() <= 0);
-            if (players.size() < size) {
-                System.err.println(players.size() - size + "player(s) killed");
+            if (players.removeIf(player -> player.getHp() <= 0)) {
+                System.err.println((size - players.size()) + " player(s) killed");
             }
         }
     }
@@ -54,7 +52,7 @@ public class RaidRoom {
         } else if (Time.timePassedFrom(boss.getLastAOETime()) / Time.MINUTE_MILLIS > 0) {
             System.err.println("Boss uses AOE");
             boss.doAOEAttack(players);
-        } else if (Time.timePassedFrom(boss.getLastSimpleAttackTime()) / Time.SECOND_MILLIS > 0) {
+        } else {
             if (boss.getCurrentTarget() == null || boss.getCurrentTarget().getHp() < 0) {
                 boss.selectNewTarget(players);
             }

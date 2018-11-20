@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Game {
     public static Random RANDOM = new Random();
-    private static int PLAYERS_COUNT = 100;
+    private static int PLAYERS_COUNT = 10000;
     private static long RAID_DURATION_MILLIS = Time.MINUTE_MILLIS * 10;
 
     public static void main(String[] args) {
@@ -29,12 +29,12 @@ public class Game {
     private static List<Player> waitPlayers(int playersCount) {
         List<Player> players = new ArrayList<>(playersCount);
         for (int i = 0; i < playersCount; i++) {
-            players.add(new Player(5f + RANDOM.nextFloat() * 15f, 1 + RANDOM.nextFloat() * 2f));
+            players.add(new Player(10f + RANDOM.nextFloat() * 40f, 0.01f + RANDOM.nextFloat() * 0.99f));
         }
         return players;
     }
 
     private static Boss createBoss() {
-        return new Boss(100000, 10f, 50f, 500f);
+        return new Boss(1000000f, 0.1f, 25f, 50f);
     }
 }

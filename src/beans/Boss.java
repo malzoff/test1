@@ -3,6 +3,7 @@ package beans;
 import java.util.List;
 
 import static game.Game.RANDOM;
+import static util.Time.getNow;
 
 public class Boss extends GameObject {
 
@@ -11,7 +12,6 @@ public class Boss extends GameObject {
     private Player currentTarget = null;
     private long lastAOETime;
     private long lastAOENukeTime;
-    private long lastSimpleAttackTime;
 
     public Boss(float hp, float dps, float aoeDamage, float aoeNukeDamage) {
         super(hp, dps);
@@ -37,7 +37,6 @@ public class Boss extends GameObject {
 
     public void doSimpleAttack() {
             doSimpleAttack(currentTarget, getDps());
-            lastSimpleAttackTime = System.currentTimeMillis();
     }
 
     private void doSimpleAttack(GameObject target, float damage) {
@@ -72,22 +71,17 @@ public class Boss extends GameObject {
         return lastAOETime;
     }
 
-    public long getLastSimpleAttackTime() {
-        return lastSimpleAttackTime;
-    }
-
     public void doAOEAttack(List<Player> players) {
         doAOEAttack(players, aoeDamage);
-        lastAOETime = System.currentTimeMillis();
+        lastAOETime = getNow();
     }
 
     public void doAOENukeAttack(List<Player> players) {
         doAOEAttack(players, aoeNukeDamage);
-        lastAOENukeTime = System.currentTimeMillis();
+        lastAOENukeTime = getNow();
     }
 
     public void resetTimers(long time) {
-        lastSimpleAttackTime = time;
         lastAOETime = time;
         lastAOENukeTime = time;
     }
