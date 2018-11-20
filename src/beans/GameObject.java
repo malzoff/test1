@@ -1,6 +1,6 @@
 package beans;
 
-public class GameObject {
+public abstract class GameObject {
 
     float dps;
     float hp;

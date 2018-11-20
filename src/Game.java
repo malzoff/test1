@@ -12,16 +12,18 @@ public class Game {
     private static long RAID_DURATION_MILLIS = 10000;
 
     public static void main(String[] args) {
-        startRaid(
+        createRaidRoom(
                 waitPlayers(PLAYERS_COUNT)
                 , createBoss()
                 , RAID_DURATION_MILLIS
         );
     }
 
-    private static void startRaid(List<Player> players, Boss boss, long raidDuration) {
+    private static void createRaidRoom(List<Player> players, Boss boss, long raidDuration) {
         players.sort((o1, o2) -> o2.getDps() - o1.getDps() > 0 ? 1 : o1.getDps() - o2.getDps() < 0 ? -1 : 0);
-        new Raid(players, boss, raidDuration);
+        Raid raid = new Raid(players, boss, raidDuration) {
+
+        };
     }
 
     private static List<Player> waitPlayers(int playersCount) {

@@ -6,6 +6,10 @@ public class Player extends GameObject {
         super(hp, dps);
     }
 
+    public void doSimpleAttack(GameObject target, float damage) {
+
+    }
+
     @Override
     public String toString() {
         return "P{" +

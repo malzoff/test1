@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.List;
+
 public class Boss extends GameObject {
 
     private float aoeDamage;
@@ -26,5 +28,13 @@ public class Boss extends GameObject {
 
     public void setCurrentTarget(Player currentTarget) {
         this.currentTarget = currentTarget;
+    }
+
+    public void doSimpleAttack(GameObject target, float damage) {
+
+    }
+
+    public void doAOEAttack(List<GameObject> target, float damage) {
+
     }
 }

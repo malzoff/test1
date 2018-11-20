@@ -1,19 +1,17 @@
 package beans;
 
-import java.util.List;
-
 public interface IEvent {
 
-    boolean attack(GameObject actor, GameObject target);
+    boolean onBossAttack();
 
-    boolean aoeAttack(GameObject actor, List<GameObject> target);
+    boolean onPlayerAttack();
 
-    boolean raidStart();
+    boolean onRaidStart();
 
-    boolean raidEnd();
+    boolean onRaidEnd();
 
-    boolean raidWin();
+    boolean onRaidSuccess();
 
-    boolean raidDefeate();
+    boolean onRaidFailed();
 
 }
