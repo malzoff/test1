@@ -5,8 +5,10 @@ import java.util.List;
 import static game.Game.RANDOM;
 import static util.Time.getNow;
 
-public class Boss extends GameObject {
+public class Boss {
 
+    private float hp;
+    private float dps;
     private float aoeDamage;
     private float aoeNukeDamage;
     private Player currentTarget = null;
@@ -14,9 +16,22 @@ public class Boss extends GameObject {
     private long lastAOENukeTime;
 
     public Boss(float hp, float dps, float aoeDamage, float aoeNukeDamage) {
-        super(hp, dps);
+        this.hp = hp;
+        this.dps = dps;
         this.aoeDamage = aoeDamage;
         this.aoeNukeDamage = aoeNukeDamage;
+    }
+
+    public float getHp() {
+        return hp;
+    }
+
+    public void setHp(float hp) {
+        this.hp = hp;
+    }
+
+    public float getDps() {
+        return dps;
     }
 
     public float getAoeDamage() {
@@ -39,14 +54,14 @@ public class Boss extends GameObject {
             doSimpleAttack(currentTarget, getDps());
     }
 
-    private void doSimpleAttack(GameObject target, float damage) {
+    private void doSimpleAttack(Player target, float damage) {
         if (target != null && target.getHp() > 0 && damage > 0) {
             target.setHp(target.getHp() - damage);
         }
     }
 
-    private void doAOEAttack(List<? extends GameObject> targets, float damage) {
-        for (GameObject target: targets) {
+    private void doAOEAttack(List<Player> targets, float damage) {
+        for (Player target: targets) {
             doSimpleAttack(target, damage);
         }
     }
@@ -72,12 +87,12 @@ public class Boss extends GameObject {
     }
 
     public void doAOEAttack(List<Player> players) {
-        doAOEAttack(players, aoeDamage);
+        doAOEAttack(players, getAoeDamage());
         lastAOETime = getNow();
     }
 
     public void doAOENukeAttack(List<Player> players) {
-        doAOEAttack(players, aoeNukeDamage);
+        doAOEAttack(players, getAoeNukeDamage());
         lastAOENukeTime = getNow();
     }
 

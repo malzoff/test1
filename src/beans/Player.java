@@ -1,12 +1,29 @@
 package beans;
 
-public class Player extends GameObject {
+public class Player {
+
+    private float hp;
+    private float dps;
 
     public Player(float hp, float dps) {
-        super(hp, dps);
+
+        this.hp = hp;
+        this.dps = dps;
     }
 
-    private void doSimpleAttack(GameObject target, float damage) {
+    public float getHp() {
+        return hp;
+    }
+
+    public void setHp(float hp) {
+        this.hp = hp;
+    }
+
+    public float getDps() {
+        return dps;
+    }
+
+    private void doSimpleAttack(Boss target, float damage) {
         target.setHp(target.getHp() - damage);
     }
 
