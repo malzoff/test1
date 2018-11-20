@@ -8,8 +8,8 @@ public class Time {
         return System.currentTimeMillis() - timeMillis;
     }
     
-    public static long timeLeftBefore(long startTimeMillis) {
-        return startTimeMillis - System.currentTimeMillis();
+    public static long timeLeftBefore(long timeMillis) {
+        return timeMillis - System.currentTimeMillis();
     }
 
     public static long getNow() {

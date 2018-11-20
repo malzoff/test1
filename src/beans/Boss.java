@@ -14,7 +14,7 @@ public class Boss extends GameObject {
     private long lastSimpleAttackTime;
 
     public Boss(float hp, float dps, float aoeDamage, float aoeNukeDamage) {
-        super(dps, hp);
+        super(hp, dps);
         this.aoeDamage = aoeDamage;
         this.aoeNukeDamage = aoeNukeDamage;
     }
@@ -36,13 +36,13 @@ public class Boss extends GameObject {
     }
 
     public void doSimpleAttack() {
-            doSimpleAttack(currentTarget, dps);
+            doSimpleAttack(currentTarget, getDps());
             lastSimpleAttackTime = System.currentTimeMillis();
     }
 
     private void doSimpleAttack(GameObject target, float damage) {
-        if (target != null && target.hp > 0 && damage > 0) {
-            target.hp -= damage;
+        if (target != null && target.getHp() > 0 && damage > 0) {
+            target.setHp(target.getHp() - damage);
         }
     }
 

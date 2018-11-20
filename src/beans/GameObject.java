@@ -1,11 +1,11 @@
 package beans;
 
-public abstract class GameObject {
+public class GameObject {
 
-    float dps;
-    float hp;
+    private float dps;
+    private float hp;
 
-    public GameObject( float hp, float dps) {
+    public GameObject(float hp, float dps) {
         this.dps = dps;
         this.hp = hp;
     }

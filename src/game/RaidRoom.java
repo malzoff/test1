@@ -1,40 +1,40 @@
 package game;
 
 import beans.Boss;
-import beans.IAction;
 import beans.Player;
 import util.Time;
 
-import java.util.Date;
 import java.util.List;
 
 import static util.Time.getNow;
 
-public class Raid implements IAction {
+public class RaidRoom {
     private final List<Player> players;
     private final Boss boss;
     private Thread raidThread;
 
-    public Raid(List<Player> players, Boss boss, final long durationMillis) {
+    public RaidRoom(List<Player> players, Boss boss, final long durationMillis) {
         this.players = players;
         this.boss = boss;
 
         raidThread = new Thread(() -> {
-            try {
-                long endTime = getNow() + durationMillis;
-                boss.selectNewTarget(players);
-                boss.resetTimers(getNow());
-                while (Time.timeLeftBefore(endTime) > 0 && players.size() > 0 && boss.getHp() > 0) {
-                    long loopStart = getNow();
-                    bossAttack();
-                    dropKilledPlayers();
-                    playersAttack();
+            long endTime = getNow() + durationMillis;
+            boss.selectNewTarget(players);
+            boss.resetTimers(getNow());
+            System.err.println("timeLeft:" + Time.timeLeftBefore(endTime) + " pCount:" + players.size() + " bossHp:" + boss.getHp());
+            while (Time.timeLeftBefore(endTime) > 0 && players.size() > 0 && boss.getHp() > 0) {
+                long loopStart = getNow();
+                bossAttack();
+                dropKilledPlayers();
+                playersAttack();
+                System.err.println("timeLeft:" + Time.timeLeftBefore(endTime) + " pCount:" + players.size() + " bossHp:" + boss.getHp());
+                try {
                     Thread.sleep(Time.SECOND_MILLIS - (getNow() - loopStart));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                raidEnd();
-            } catch (InterruptedException e) {
-                //
             }
+            raidEnd();
         });
     }
 
@@ -48,8 +48,7 @@ public class Raid implements IAction {
         }
     }
 
-    @Override
-    public void bossAttack() {
+    private void bossAttack() {
         if ((getNow() - boss.getLastAOENukeTime()) / (2 * Time.MINUTE_MILLIS) > 0) {
             System.err.println("Boss uses AOE NUKE");
             boss.doAOENukeAttack(players.subList(0, 99));
@@ -65,24 +64,24 @@ public class Raid implements IAction {
         }
     }
 
-    @Override
-    public void playersAttack() {
+    private void playersAttack() {
         int size = players.size();
+        int attacksCnt = 0;
         if (size > 0) {
             for (int i = 0; i < size && boss.getHp() > 0; i++) {
                 players.get(i).doSimpleAttack(boss);
+                System.err.println("player " + i + " hits boss by " + players.get(i).getDps() + "; boss hp left:" + boss.getHp());
             }
         }
+        System.err.println("attacks:" + attacksCnt);
     }
 
-    @Override
     public void raidStart() {
-        System.err.println("raid started at " + new Date(getNow()));
+        System.err.println("raid started at " + getNow());
         raidThread.start();
     }
 
-    @Override
-    public void raidEnd() throws InterruptedException {
+    private void raidEnd() {
         System.err.print("Raid ended by ");
         if (boss.getHp() > 0 || players.size() == 0) {
             raidFailed();

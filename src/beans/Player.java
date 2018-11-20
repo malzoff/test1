@@ -7,10 +7,10 @@ public class Player extends GameObject {
     }
 
     private void doSimpleAttack(GameObject target, float damage) {
-        target.hp -= damage;
+        target.setHp(target.getHp() - damage);
     }
 
     public void doSimpleAttack(Boss boss) {
-        doSimpleAttack(boss, dps);
+        doSimpleAttack(boss, getDps());
     }
 }
