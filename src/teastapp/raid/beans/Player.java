@@ -1,4 +1,4 @@
-package beans;
+package teastapp.raid.beans;
 
 public class Player {
 

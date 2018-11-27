@@ -1,4 +1,4 @@
-package util;
+package teastapp.raid.util;
 
 public class Time {
     public static long SECOND_MILLIS = 1000;

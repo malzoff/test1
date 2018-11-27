@@ -1,9 +1,9 @@
-package beans;
+package teastapp.raid.beans;
 
 import java.util.List;
 
-import static game.Game.RANDOM;
-import static util.Time.getNow;
+import static teastapp.raid.Game.RANDOM;
+import static teastapp.raid.util.Time.getNow;
 
 public class Boss {
 

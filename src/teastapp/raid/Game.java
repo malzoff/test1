@@ -1,8 +1,9 @@
-package game;
+package teastapp.raid;
 
-import beans.Boss;
-import beans.Player;
-import util.Time;
+import teastapp.raid.beans.Boss;
+import teastapp.raid.beans.Player;
+import teastapp.raid.game.RaidRoom;
+import teastapp.raid.util.Time;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,12 @@
-package game;
+package teastapp.raid.game;
 
-import beans.Boss;
-import beans.Player;
-import util.Time;
+import teastapp.raid.beans.Boss;
+import teastapp.raid.beans.Player;
+import teastapp.raid.util.Time;
 
 import java.util.List;
 
-import static util.Time.getNow;
+import static teastapp.raid.util.Time.getNow;
 
 public class RaidRoom {
     private List<Player> players;
