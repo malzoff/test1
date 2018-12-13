@@ -27,7 +27,7 @@ public class RaidRoom {
                 dropKilledPlayers();
                 playersAttack();
                 try {
-                    Thread.sleep(Time.SECOND_MILLIS - (getNow() - loopStart));
+                    Thread.sleep(Math.max(Time.SECOND_MILLIS - (getNow() - loopStart), 0));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -48,7 +48,7 @@ public class RaidRoom {
     private void bossAttack() {
         if ((getNow() - boss.getLastAOENukeTime()) / (2 * Time.MINUTE_MILLIS) > 0) {
             System.err.println("Boss uses AOE NUKE");
-            boss.doAOENukeAttack(players.subList(0, 99));
+            boss.doAOENukeAttack(players.subList(0, Math.min(100, players.size())));
         } else if (Time.timePassedFrom(boss.getLastAOETime()) / Time.MINUTE_MILLIS > 0) {
             System.err.println("Boss uses AOE");
             boss.doAOEAttack(players);
